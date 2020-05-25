@@ -29,13 +29,9 @@ window.addEventListener('load', () => {
 
 });
 
-function fetchCountries() {
-  fetch('https://restcountries.eu/rest/v2/all')
-    .then(res => res.json())
-    .then(json => {
-      allContries = json;
-      console.log(allContries);
-    });
-
+async function fetchCountries() {
+  const res = await fetch('https://restcountries.eu/rest/v2/all')
+  const json = await res.json();
+  allContries = json;
   console.log(allContries);
 }
