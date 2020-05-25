@@ -30,5 +30,12 @@ window.addEventListener('load', () => {
 });
 
 function fetchCountries() {
-  console.log('fetching....');
+  fetch('https://restcountries.eu/rest/v2/all')
+    .then(res => res.json())
+    .then(json => {
+      allContries = json;
+      console.log(allContries);
+    });
+
+  console.log(allContries);
 }
