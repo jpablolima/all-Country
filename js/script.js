@@ -32,6 +32,35 @@ window.addEventListener('load', () => {
 async function fetchCountries() {
   const res = await fetch('https://restcountries.eu/rest/v2/all')
   const json = await res.json();
-  allContries = json;
-  console.log(allContries);
+  allContries = json.map(country => {
+    const {
+      numericCode,
+      translations,
+      population,
+      flag
+    } = country;
+    return {
+      id: numericCode,
+      name: translations.pt,
+      population,
+      flag
+    }
+  });
+  //console.log(allContries);
+  render();
 }
+
+function render() {
+  renderCountryList();
+  renderFavorites();
+  renderSumary();
+  handleContryButtons();
+}
+
+function renderCountryList() {};
+
+function renderFavorites() {};
+
+function renderSumary() {};
+
+function handleContryButtons() {};
