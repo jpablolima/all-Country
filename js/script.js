@@ -53,14 +53,45 @@ async function fetchCountries() {
 function render() {
   renderCountryList();
   renderFavorites();
-  renderSumary();
+  renderSummary();
   handleContryButtons();
 }
 
-function renderCountryList() {};
+function renderCountryList() {
+  let countriesHTML = '<div>';
+  allContries.forEach(country => {
+    const {
+      name,
+      flag,
+      id,
+      population
+    } = country;
 
-function renderFavorites() {};
+    const counytyHTML = `
+    <div class = 'country'>
+    <div>
+      <a  id="${id}" class = "waves-effect waves-light btn">+</a>
+    </div>
+    <div>
+      <img src="${flag}" alt="${name}">
+    </div>
+    <div>
+      <ul>
+        <li>${name}</li>  
+        <li>${population}</li>  
+      </ul>
+    </div>
+    </div>     
+    `;
+    countriesHTML += counytyHTML;
+  });
+  tabCountries.innerHTML = countriesHTML;
+}
 
-function renderSumary() {};
+function renderFavorites() {
+
+};
+
+function renderSummary() {};
 
 function handleContryButtons() {};
