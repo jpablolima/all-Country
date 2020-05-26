@@ -32,6 +32,7 @@ window.addEventListener('load', () => {
 async function fetchCountries() {
   const res = await fetch('https://restcountries.eu/rest/v2/all')
   const json = await res.json();
+
   allContries = json.map(country => {
     const {
       numericCode,
@@ -47,6 +48,8 @@ async function fetchCountries() {
     }
   });
   //console.log(allContries);
+
+  //favoriteCountries = allContries;
   render();
 }
 
@@ -67,10 +70,10 @@ function renderCountryList() {
       population
     } = country;
 
-    const counytyHTML = `
+    const countryHTML = `
     <div class = 'country'>
     <div>
-      <a  id="${id}" class = "waves-effect waves-light btn">+</a>
+      <a  id="${id}" class = "waves-effect waves-light btn red darken-4">+</a>
     </div>
     <div>
       <img src="${flag}" alt="${name}">
@@ -83,15 +86,63 @@ function renderCountryList() {
     </div>
     </div>     
     `;
-    countriesHTML += counytyHTML;
+    countriesHTML += countryHTML;
   });
+  countCoutries += '</div>'
   tabCountries.innerHTML = countriesHTML;
 }
 
 function renderFavorites() {
 
+  let favoritesHTML = '<div>';
+
+  favoriteCoutries.forEach(country => {
+    const {
+      name,
+      flag,
+      id,
+      population
+    } = country;
+
+    const favoriteCountryHTML = `
+    <div class = 'country'>
+    <div>
+      <a  id="${id}" class = "waves-effect waves-light btn">-</a>
+    </div>
+    <div>
+      <img src="${flag}" alt="${name}">
+    </div>
+    <div>
+      <ul>
+        <li>${name}</li>  
+        <li>${population}</li>  
+      </ul>
+    </div>
+    </div>     
+    `;
+    favoritesHTML += favoriteCountryHTML;
+
+  });
+
+  favoritesHTML += '</div>';
+  tabFavorites.innerHTML = favoritesHTML;
+
+
 };
 
-function renderSummary() {};
+function renderSummary() {
+  countCountries.textContent = allContries.length;
+  countFavorites.textContent = favoriteCountries.length;
+
+  const totalPopulation = allContries.reduce((accumulator, current) => {
+    return accumulator + current.population;
+  }, 0);
+
+  const totalFavorites = favoritesCountries.reduce((accumulator, current) => {
+    return accumulator + current.population;
+  }, 0);
+  totalPopulationList.textContent = totalPopulation;
+  totalPopulationFavorites.textContent = totalFavorites;
+};
 
 function handleContryButtons() {};
